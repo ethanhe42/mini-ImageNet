@@ -5,6 +5,7 @@ import random as rd
 rd.seed(1)
 
 data_dir = '/path/to/imagenet/train'
+dst_dir = '/path/to/miniimagenet'
 
 class_list = os.listdir(data_dir)
 image_dict = {}
@@ -37,7 +38,6 @@ val_idx_dict = {}
 read_csv('test.csv', val_idx_dict)
 
 """ data copy """
-dst_dir = '/path/to/miniimagenet'
 for cls in train_idx_dict:
     idx_list = train_idx_dict[cls]
     rd.shuffle(idx_list)
