@@ -1,4 +1,5 @@
 # Generate mini-ImageNet with ImageNet
+for both caffe and torch style input
 ### prepare ImageNet
 ```shell
 mkdir train && mv ILSVRC2012_img_train.tar train/ && cd train
