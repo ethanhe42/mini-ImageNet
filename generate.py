@@ -6,6 +6,9 @@ rd.seed(1)
 
 data_dir = '/path/to/imagenet/train'
 dst_dir = '/path/to/miniimagenet'
+minitrain = open('sourcetrain.txt', 'w')
+minival = open('sourceval.txt', 'w')
+minitest = open('sourcetest.txt', 'w')
 
 class_list = os.listdir(data_dir)
 image_dict = {}
@@ -36,6 +39,7 @@ read_csv('train.csv', train_idx_dict)
 read_csv('val.csv', train_idx_dict)
 val_idx_dict = {}
 read_csv('test.csv', val_idx_dict)
+f2c = folder2class()
 
 """ data copy """
 for cls in train_idx_dict:
@@ -51,8 +55,10 @@ for cls in train_idx_dict:
         src = os.path.join(data_dir, cls, image_dict[cls][idx])
         if idx_idx >= 50:
             dst = os.path.join(dst_dir, 'train', cls, image_dict[cls][idx])
+            minitrain.write(src + ' ' + f2c[cls]+'\n')
         else:
             dst = os.path.join(dst_dir, 'val', cls, image_dict[cls][idx])
+            minival.write(src + ' ' + f2c[cls]+'\n')
         print src + ' -> ' + dst
         os.symlink(src,dst)
         #shutil.copyfile(src, dst)
@@ -66,7 +72,11 @@ for cls in val_idx_dict:
     for idx in idx_list:
         src = os.path.join(data_dir, cls, image_dict[cls][idx])
         dst = os.path.join(dst_dir, 'test', cls, image_dict[cls][idx])
+        minitest.write(src + ' ' + f2c[cls]+'\n')
         print src + ' -> ' + dst
         os.symlink(src,dst)
         #shutil.copyfile(src, dst)
 
+minitrain.close()
+minival.close()
+minitest.close()
