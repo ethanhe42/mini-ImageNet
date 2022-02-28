@@ -1,1 +1,1 @@
-# https://yihui-he.github.io/mini-ImageNet/
+# https://yihui-he.github.io/blog/generate-mini-imagenet-with-imagenet
